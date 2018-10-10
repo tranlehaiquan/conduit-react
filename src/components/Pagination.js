@@ -4,27 +4,27 @@ export default class Pagination extends Component {
   render() {
     return(
       <nav>
-        <ul class="pagination">
-          <li class="page-item disabled">
-            <a href="" class="page-link">Previous</a>
+        <ul className="pagination">
+          <li className="page-item disabled">
+            <a href="" className="page-link">Previous</a>
           </li>
-          <li class="page-item active">
-            <a href="" class="page-link">1</a>
+          <li className="page-item active">
+            <a href="" className="page-link">1</a>
           </li>
-          <li class="page-item">
-            <a href="" class="page-link">2</a>
+          <li className="page-item">
+            <a href="" className="page-link">2</a>
           </li>
-          <li class="page-item">
-            <a href="" class="page-link">3</a>
+          <li className="page-item">
+            <a href="" className="page-link">3</a>
           </li>
-          <li class="page-item">
-            <a class="page-link">...</a>
+          <li className="page-item">
+            <a className="page-link">...</a>
           </li>
-          <li class="page-item">
-            <a href="" class="page-link">71</a>
+          <li className="page-item">
+            <a href="" className="page-link">71</a>
           </li>
-          <li class="page-item">
-            <a href="" class="page-link">Next</a>
+          <li className="page-item">
+            <a href="" className="page-link">Next</a>
           </li>
         </ul>
       </nav>
