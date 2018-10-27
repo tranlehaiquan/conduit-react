@@ -1,5 +1,6 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 const tagList = [
   {
@@ -14,7 +15,7 @@ const tagList = [
     name: 'mean',
     to: 'mean'
   }
-]
+];
 
 export default class Tags extends PureComponent {
   renderTags() {
@@ -38,3 +39,9 @@ export default class Tags extends PureComponent {
     )
   }
 }
+
+const mapStateToProps = state => {
+};
+
+const mapDispatchToProps = dispatch => ({
+});

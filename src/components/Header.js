@@ -42,30 +42,28 @@ const afterLoginNavLinks = [
   }
 ];
 
-
+function renderNavLinks(navLinks) {
+  const links = navLinks.map((navLink) => {
+    return (
+      <li className="nav-item" key={navLink.name}>
+        <NavLink 
+          activeClassName="active" 
+          to={navLink.to} 
+          className="nav-link"
+          exact={navLink.exact}
+        >
+          {
+            navLink.iconName &&
+            <i className={navLink.iconName}></i> 
+          }
+          {navLink.name}
+        </NavLink>
+      </li>
+    )
+  });
+  return links;
+}
 export default class Header extends Component {
-  renderNavLinks(navLinks) {
-    const links = navLinks.map((navLink) => {
-      return (
-        <li className="nav-item" key={navLink.name}>
-          <NavLink 
-            activeClassName="active" 
-            to={navLink.to} 
-            className="nav-link"
-            exact={navLink.exact}
-          >
-            {
-              navLink.iconName &&
-              <i className={navLink.iconName}></i> 
-            }
-            {navLink.name}
-          </NavLink>
-        </li>
-      )
-    });
-    return links;
-  }
-
   render() {
     const isAuth = false;
     const navLinks = isAuth ? afterLoginNavLinks : beforeLoginNavLinks;
@@ -74,7 +72,7 @@ export default class Header extends Component {
         <div className="container">
           <Logo/>
           <ul className="nav navbar-nav pull-xs-right">
-            {this.renderNavLinks(navLinks)}
+            {renderNavLinks(navLinks)}
           </ul>
         </div>
       </nav>
