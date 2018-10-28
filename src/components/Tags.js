@@ -1,28 +1,12 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-
-const tagList = [
-  {
-    name: 'programming',
-    to: 'programming'
-  },
-  {
-    name: 'javascript',
-    to: 'javascript'
-  },
-  {
-    name: 'mean',
-    to: 'mean'
-  }
-];
 
 export default class Tags extends PureComponent {
   renderTags() {
-    const tags = tagList.map((tag) => {
+    const tags = this.props.tags.map((tag) => {
       return(
-        <Link key={tag.name} to={`tag/${tag.to}`} className="tag-pill tag-default">
-          { tag.name }
+        <Link key={tag} to={`tag/${tag}`} className="tag-pill tag-default">
+          { tag }
         </Link>
       );
     });
@@ -39,9 +23,3 @@ export default class Tags extends PureComponent {
     )
   }
 }
-
-const mapStateToProps = state => {
-};
-
-const mapDispatchToProps = dispatch => ({
-});

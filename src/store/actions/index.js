@@ -1,22 +1,33 @@
-let nextTodoId = 0
-export const addTodo = text => ({
-  type: 'ADD_TODO',
-  id: nextTodoId++,
-  text
-})
+import axios from '../../config/httpRequest';
 
-export const setVisibilityFilter = filter => ({
-  type: 'SET_VISIBILITY_FILTER',
-  filter
-})
+export const setArticles = (articles) => ({
+  type: 'SET_ARTICLES',
+  payload: articles
+});
 
-export const toggleTodo = id => ({
-  type: 'TOGGLE_TODO',
-  id
-})
+export const setTags = (tags) => ({
+  type: 'SET_TAGS',
+  payload: tags
+});
 
-export const VisibilityFilters = {
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_COMPLETED: 'SHOW_COMPLETED',
-  SHOW_ACTIVE: 'SHOW_ACTIVE'
+export const setArticlesFilter = (filter) => ({
+  type: 'SET_ARTICLES_FILTER',
+  payload: filter
+});
+
+// Action creator return a function
+// because it is async
+// Must use react thunk or something else to handle
+export const fetchTags = () => {
+  return async (dispatch) => {
+    const { data: {tags: tags} } = await axios.get('https://conduit.productionready.io/api/tags');
+
+    dispatch(setTags(tags));
+  }
 }
+
+export const ArticlesFilter = ({
+  SHOW_ALL: 'SHOW_ALL',
+  SHOW_FEED: 'SHOW_FEED',
+  SHOW_FAVORITED: 'SHOW_FAVORITED'
+});

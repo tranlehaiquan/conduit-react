@@ -1,10 +1,29 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+
 import Tags from '../components/Tags';
 import ArticlePreview from '../components/ArticlePreview'
 import ArticleFeedNav from '../components/ArticleFeedNav'
 import Pagination from '../components/Pagination'
 
-export default class Home extends Component {
+import { fetchTags } from '../store/actions';
+
+class Home extends Component {
+  static propTypes = {
+    fetchTags: PropTypes.func,
+    tags: PropTypes.array
+  }
+
+  static defaultProps = {
+    fetchTags: null,
+    tags: []
+  }
+
+  componentDidMount() {
+    this.props.fetchTags();
+  }
+
   render() {
     return(
       <div className="home-page">
@@ -18,18 +37,13 @@ export default class Home extends Component {
           <div className="row">
             <div className="col-md-9">
               <ArticleFeedNav></ArticleFeedNav>
-              <ArticlePreview></ArticlePreview>
-              <ArticlePreview></ArticlePreview>
-              <ArticlePreview></ArticlePreview>
-              <ArticlePreview></ArticlePreview>
-              <ArticlePreview></ArticlePreview>
-              <ArticlePreview></ArticlePreview>
+              <ArticlePreview />
               <div className="text-xs-center">
                 <Pagination></Pagination>              
               </div>
             </div>
             <div className="col-md-3">
-              <Tags></Tags>
+              <Tags tags={this.props.tags}></Tags>
             </div>
           </div>
         </div>
@@ -37,3 +51,18 @@ export default class Home extends Component {
     )
   }
 }
+
+const mapStateToProps = ({ home }) => ({
+  tags: home.tags
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchTags: () => {
+    dispatch(fetchTags());
+  }
+});
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Home);
