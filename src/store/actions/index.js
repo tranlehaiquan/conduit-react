@@ -1,4 +1,4 @@
-import axios from '../../config/httpRequest';
+import { requestTags, requestArticles } from '../../api';
 
 export const setArticles = (articles) => ({
   type: 'SET_ARTICLES',
@@ -10,24 +10,21 @@ export const setTags = (tags) => ({
   payload: tags
 });
 
-export const setArticlesFilter = (filter) => ({
-  type: 'SET_ARTICLES_FILTER',
-  payload: filter
-});
-
 // Action creator return a function
 // because it is async
 // Must use react thunk or something else to handle
 export const fetchTags = () => {
   return async (dispatch) => {
-    const { data: {tags: tags} } = await axios.get('https://conduit.productionready.io/api/tags');
+    const { data } = await requestTags();
 
-    dispatch(setTags(tags));
+    dispatch(setTags(data.tags));
   }
 }
 
-export const ArticlesFilter = ({
-  SHOW_ALL: 'SHOW_ALL',
-  SHOW_FEED: 'SHOW_FEED',
-  SHOW_FAVORITED: 'SHOW_FAVORITED'
-});
+export const fetchArticles = () => {
+  return async (dispatch) => {
+    const { data } = await requestArticles();
+
+    dispatch(setArticles(data))
+  }
+}

@@ -1,5 +1,6 @@
 const defaultState = {
   articles: [],
+  articlesCount: 0,
   tags: []
 }
 
@@ -9,6 +10,13 @@ const home = (state = defaultState, action) => {
       return {
         ...state,
         tags: action.payload
+      }
+    case 'SET_ARTICLES':
+      const { articles, articlesCount } = action.payload;
+      return {
+        ...state,
+        articles,
+        articlesCount
       }
     default:
       return state

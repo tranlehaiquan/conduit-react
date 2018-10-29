@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
 
 export default class Tags extends PureComponent {
-  renderTags() {
+  renderTags = () => {
     const tags = this.props.tags.map((tag) => {
       return(
         <Link key={tag} to={`tag/${tag}`} className="tag-pill tag-default">
@@ -12,6 +12,7 @@ export default class Tags extends PureComponent {
     });
     return tags;
   }
+
   render() {
     return(
       <div className="sidebar">

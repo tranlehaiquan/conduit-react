@@ -3,25 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import Tags from '../components/Tags';
-import ArticlePreview from '../components/ArticlePreview'
-import ArticleFeedNav from '../components/ArticleFeedNav'
-import Pagination from '../components/Pagination'
+import ArticleFeedNav from '../components/ArticleFeedNav';
+import ListArticles from '../components/ListArticles';
 
-import { fetchTags } from '../store/actions';
+import { fetchTags, fetchArticles } from '../store/actions';
 
 class Home extends Component {
   static propTypes = {
     fetchTags: PropTypes.func,
-    tags: PropTypes.array
+    fetchArticles: PropTypes.func,
+    tags: PropTypes.array,
+    articles: PropTypes.array,
+    articlesCount: PropTypes.number
   }
 
   static defaultProps = {
     fetchTags: null,
-    tags: []
+    tags: [],
+    fetchArticles: null,
+    articles: [],
+    articlesCount: 0
   }
 
-  componentDidMount() {
-    this.props.fetchTags();
+  async componentDidMount() {
+    await this.props.fetchTags();
   }
 
   render() {
@@ -37,10 +42,7 @@ class Home extends Component {
           <div className="row">
             <div className="col-md-9">
               <ArticleFeedNav></ArticleFeedNav>
-              <ArticlePreview />
-              <div className="text-xs-center">
-                <Pagination></Pagination>              
-              </div>
+              <ListArticles/>
             </div>
             <div className="col-md-3">
               <Tags tags={this.props.tags}></Tags>
@@ -53,12 +55,17 @@ class Home extends Component {
 }
 
 const mapStateToProps = ({ home }) => ({
-  tags: home.tags
+  tags: home.tags,
+  articles: home.articles,
+  articlesCount: home.articlesCount
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchTags: () => {
     dispatch(fetchTags());
+  },
+  fetchArticles: () => {
+    dispatch(fetchArticles());
   }
 });
 
