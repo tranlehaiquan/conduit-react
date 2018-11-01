@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const BASE_URL = "https://conduit.productionready.io/api";
+import { BASE_URL } from "./index.js";
 
 axios.defaults.baseURL = BASE_URL;
 

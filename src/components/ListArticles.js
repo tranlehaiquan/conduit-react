@@ -11,28 +11,71 @@ class ListArticles extends Component {
   static propTypes = {
     articles: PropTypes.array,
     articlesCount: PropTypes.number,
+    articlesQueryParams: PropTypes.object,
     fetchArticles: PropTypes.func
   };
 
   static defaultProps = {
     articles: [],
     articlesCount: 0,
+    articlesQueryParams: {
+      limit: 7
+    },
     fetchArticles: null
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      offset: 0
+    }
+  }
+
   async componentDidMount () {
-    this.props.fetchArticles();
+    const { articlesQueryParams } = this.props;
+    const params = Object.assign(
+      {}, 
+      {offset: this.state.offset * articlesQueryParams.limit}, 
+      articlesQueryParams);
+
+    this.props.fetchArticles(params);
+  }
+
+  changePage = (page) => {
+    this.setState(() => ({
+      offset: page
+    }));
+  }
+
+  componentDidUpdate (prevProps, prevState) {
+    if(prevState.offset !== this.state.offset) {
+      const { articlesQueryParams } = this.props;
+      const params = Object.assign(
+        {}, 
+        {offset: this.state.offset * articlesQueryParams.limit}, 
+        articlesQueryParams);
+
+      this.props.fetchArticles(params);
+    }
   }
 
   render() {
-    const { articles } = this.props;
+    const { articles, articlesCount, articlesQueryParams } = this.props;
+    const pageCount = Math.round( articlesCount / articlesQueryParams.limit );
+    const { offset } = this.state;
+
     return (
       <React.Fragment>
         { articles.map((article) => (
           <ArticlePreview article={article} key={article.slug}/>
         ))}
 
-        <Pagination/>
+        <Pagination 
+          current={offset}
+          pageCount={pageCount}
+          onChange={this.changePage}
+        />
       </React.Fragment>
     )
   }
@@ -44,8 +87,8 @@ const mapStateToProps = ({ home }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchArticles: () => {
-    dispatch(fetchArticles());
+  fetchArticles: (params) => {
+    dispatch(fetchArticles(params));
   }
 });
 

@@ -1,15 +1,29 @@
 import React, {Component} from 'react';
+import Proptypes from 'prop-types';
+import classnames from 'classnames';
 
 export default class PostPreview extends Component {
+  static propType = {
+    article: Proptypes.object
+  };
+
+  static defaultProps = {
+    article: null
+  };
+
   render() {
-    const { author, title, body, description, createdAt } = this.props.article;
+    const { author, title, description, favoritesCount, createdAt, favorited } = this.props.article;
+    const buttonStyle = classnames(
+      'btn btn-outline-primary btn-sm pull-xs-right',
+      favorited && 'active'
+    );
 
     return(
       <div className="article-preview">
         <div className="article-meta">
           <Author author={author} createdAt={createdAt} />
-          <button className="btn btn-outline-primary btn-sm pull-xs-right">
-            <i className="ion-heart"></i> 29
+          <button className={buttonStyle}>
+            <i className="ion-heart"></i> { favoritesCount }
           </button>
         </div>
         <a href="" className="preview-link">

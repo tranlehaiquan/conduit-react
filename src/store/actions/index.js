@@ -13,6 +13,11 @@ export const setTags = (tags) => ({
 // Action creator return a function
 // because it is async
 // Must use react thunk or something else to handle
+
+/**
+ * 
+ * @param {Object} params 
+ */
 export const fetchTags = () => {
   return async (dispatch) => {
     const { data } = await requestTags();
@@ -21,9 +26,9 @@ export const fetchTags = () => {
   }
 }
 
-export const fetchArticles = () => {
+export const fetchArticles = (params) => {
   return async (dispatch) => {
-    const { data } = await requestArticles();
+    const { data } = await requestArticles(params);
 
     dispatch(setArticles(data))
   }

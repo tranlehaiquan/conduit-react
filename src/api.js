@@ -4,6 +4,6 @@ export const requestTags = () => {
   return axios.get('/tags');
 }
 
-export const requestArticles = () => {
-  return axios.get('/articles')
+export const requestArticles = (params) => {
+  return axios.get('/articles', { params });
 }
