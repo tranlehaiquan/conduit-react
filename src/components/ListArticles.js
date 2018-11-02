@@ -6,13 +6,15 @@ import Pagination from './Pagination';
 
 import { connect } from 'react-redux';
 import { fetchArticles } from '../store/actions';
+import { withRouter } from 'react-router-dom'
 
 class ListArticles extends Component {
   static propTypes = {
     articles: PropTypes.array,
     articlesCount: PropTypes.number,
     articlesQueryParams: PropTypes.object,
-    fetchArticles: PropTypes.func
+    fetchArticles: PropTypes.func,
+    history: PropTypes.object
   };
 
   static defaultProps = {
@@ -21,7 +23,8 @@ class ListArticles extends Component {
     articlesQueryParams: {
       limit: 7
     },
-    fetchArticles: null
+    fetchArticles: null,
+    history: null
   };
 
   constructor(props) {
@@ -48,13 +51,17 @@ class ListArticles extends Component {
     }));
   }
 
+  /**
+   * Make action when offset page change
+   */
   componentDidUpdate (prevProps, prevState) {
     if(prevState.offset !== this.state.offset) {
       const { articlesQueryParams } = this.props;
       const params = Object.assign(
         {}, 
         {offset: this.state.offset * articlesQueryParams.limit}, 
-        articlesQueryParams);
+        articlesQueryParams
+      );
 
       this.props.fetchArticles(params);
     }
@@ -71,7 +78,7 @@ class ListArticles extends Component {
           <ArticlePreview article={article} key={article.slug}/>
         ))}
 
-        <Pagination 
+        <Pagination
           current={offset}
           pageCount={pageCount}
           onChange={this.changePage}
@@ -92,4 +99,4 @@ const mapDispatchToProps = dispatch => ({
   }
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListArticles);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ListArticles));
