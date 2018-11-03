@@ -8,6 +8,8 @@ import { connect } from 'react-redux';
 import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
 
+import { DEFAULT_LIMIT_ARTICLES } from './config';
+
 class ListArticles extends Component {
   static propTypes = {
     articles: PropTypes.array,
@@ -21,7 +23,7 @@ class ListArticles extends Component {
     articles: [],
     articlesCount: 0,
     articlesQueryParams: {
-      limit: 7
+      limit: DEFAULT_LIMIT_ARTICLES
     },
     fetchArticles: null,
     history: null
@@ -36,13 +38,14 @@ class ListArticles extends Component {
   }
 
   async componentDidMount () {
-    const { articlesQueryParams } = this.props;
+    const { articlesQueryParams, fetchArticles } = this.props;
     const params = Object.assign(
       {}, 
       {offset: this.state.offset * articlesQueryParams.limit}, 
-      articlesQueryParams);
+      articlesQueryParams
+    );
 
-    this.props.fetchArticles(params);
+    fetchArticles(params);
   }
 
   changePage = (page) => {
