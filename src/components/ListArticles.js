@@ -16,17 +16,19 @@ class ListArticles extends Component {
     articlesCount: PropTypes.number,
     articlesQueryParams: PropTypes.object,
     fetchArticles: PropTypes.func,
-    history: PropTypes.object
+    history: PropTypes.object,
+    feed: PropTypes.bool
   };
 
   static defaultProps = {
     articles: [],
     articlesCount: 0,
     articlesQueryParams: {
-      limit: DEFAULT_LIMIT_ARTICLES
+      limit: DEFAULT_LIMIT_ARTICLES,
     },
     fetchArticles: null,
-    history: null
+    history: null,
+    feed: false
   };
 
   constructor(props) {
@@ -38,14 +40,16 @@ class ListArticles extends Component {
   }
 
   async componentDidMount () {
-    const { articlesQueryParams, fetchArticles } = this.props;
+    const { articlesQueryParams, fetchArticles, feed } = this.props;
     const params = Object.assign(
       {}, 
       {offset: this.state.offset * articlesQueryParams.limit}, 
       articlesQueryParams
     );
 
-    fetchArticles(params);
+    console.log(feed);
+
+    fetchArticles(params, feed);
   }
 
   changePage = (page) => {
@@ -59,14 +63,14 @@ class ListArticles extends Component {
    */
   componentDidUpdate (prevProps, prevState) {
     if(prevState.offset !== this.state.offset) {
-      const { articlesQueryParams } = this.props;
+      const { articlesQueryParams, feed, fetchArticles } = this.props;
       const params = Object.assign(
         {}, 
         {offset: this.state.offset * articlesQueryParams.limit}, 
         articlesQueryParams
       );
 
-      this.props.fetchArticles(params);
+      fetchArticles(params, feed);
     }
   }
 
@@ -97,8 +101,8 @@ const mapStateToProps = ({ home }) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchArticles: (params) => {
-    dispatch(fetchArticles(params));
+  fetchArticles: (params, feed) => {
+    dispatch(fetchArticles(params, feed));
   }
 });
 

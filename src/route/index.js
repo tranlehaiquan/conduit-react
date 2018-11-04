@@ -1,18 +1,33 @@
 import React from 'react';
 import {Route, Redirect} from "react-router-dom";
-import Home from '../views/Home';
+import Home from '../views/Home/';
 import Login from '../views/authe/Login';
 import Register from '../views/authe/Register';
 import Profile from '../views/Profile';
 import Setting from '../views/Setting';
 import ArticleEditor from '../views/ArticleEditor';
 import ArticleDetail from '../views/ArticleDetail';
+import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
+import ArticlesFeed from '../views/Home/ArticlesFeed';
+import ArticlesGlobal from '../views/Home/ArticlesGlobal';
 
 const homeRouters = [
   {
     path: '/',
     component: Home,
-    exact: true
+    childrent: [
+      {
+        name: 'Home',
+        path: '/',
+        component: ArticlesGlobal,
+        exact: true
+      },
+      {
+        name: 'Feed',
+        path: '/feed',
+        component: ArticlesFeed
+      },
+    ]
   },
   {
     path: '/login',
@@ -65,5 +80,6 @@ export const mainRouters = homeRouters.map((router) => {
   if (meta && meta.requireAuth) {
     return <PrivateRoute key={path} component={component} path={path} {...rest} />
   }
-  return <Route key={path} component={component} path={path} {...rest} />
+  // return <Route key={path} render={() => <p>test</p>} path={path} {...rest} />
+  return <RouteWithSubRoutes key={path} {...router} />
 });

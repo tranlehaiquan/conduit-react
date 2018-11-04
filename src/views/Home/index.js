@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import Tags from '../components/Tags';
-import ArticleFeedNav from '../components/ArticleFeedNav';
-import ListArticles from '../components/ListArticles';
+import Tags from '../../components/Tags';
+import ArticleFeedNav from './ArticleFeedNav';
+import RouteWithSubRoutes from '../../components/RouteWithSubRoutes';
 
-import { fetchTags, fetchArticles } from '../store/actions';
+import { fetchTags, fetchArticles } from '../../store/actions';
 
-class Home extends Component {
+class Home extends Component {ArticleFeedNav
   static propTypes = {
     fetchTags: PropTypes.func,
     fetchArticles: PropTypes.func,
@@ -30,6 +30,8 @@ class Home extends Component {
   }
 
   render() {
+    const { routers } = this.props;
+
     return(
       <div className="home-page">
         <div className="banner">
@@ -42,7 +44,12 @@ class Home extends Component {
           <div className="row">
             <div className="col-md-9">
               <ArticleFeedNav></ArticleFeedNav>
-              <ListArticles/>
+              {
+                routers.map((router) => (
+                  <RouteWithSubRoutes key={router.name} {...router} />
+                ))
+              }
+
             </div>
             <div className="col-md-3">
               <Tags tags={this.props.tags}></Tags>
