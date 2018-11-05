@@ -9,6 +9,7 @@ import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
 
 import { DEFAULT_LIMIT_ARTICLES } from './config';
+import { parseQueryString } from '../utils';
 
 class ListArticles extends Component {
   static propTypes = {
@@ -17,7 +18,8 @@ class ListArticles extends Component {
     articlesQueryParams: PropTypes.object,
     fetchArticles: PropTypes.func,
     history: PropTypes.object,
-    feed: PropTypes.bool
+    feed: PropTypes.bool,
+    offset: PropTypes.number
   };
 
   static defaultProps = {
@@ -28,26 +30,21 @@ class ListArticles extends Component {
     },
     fetchArticles: null,
     history: null,
-    feed: false
+    feed: false,
+    offset: 0
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      offset: 0
-    }
+  state = {
+    offset: this.props.offset
   }
 
   async componentDidMount () {
-    const { articlesQueryParams, fetchArticles, feed } = this.props;
+    const { articlesQueryParams, fetchArticles, feed, history } = this.props;
     const params = Object.assign(
       {}, 
       {offset: this.state.offset * articlesQueryParams.limit}, 
       articlesQueryParams
     );
-
-    console.log(feed);
 
     fetchArticles(params, feed);
   }
@@ -63,7 +60,8 @@ class ListArticles extends Component {
    */
   componentDidUpdate (prevProps, prevState) {
     if(prevState.offset !== this.state.offset) {
-      const { articlesQueryParams, feed, fetchArticles } = this.props;
+      const { articlesQueryParams, feed, fetchArticles, history } = this.props;
+      const { offset } = this.state;
       const params = Object.assign(
         {}, 
         {offset: this.state.offset * articlesQueryParams.limit}, 
@@ -71,6 +69,12 @@ class ListArticles extends Component {
       );
 
       fetchArticles(params, feed);
+
+      if(!offset) {
+        history.push('/');
+      } else {
+        history.push(`/?page=${offset + 1}`);
+      }
     }
   }
 
