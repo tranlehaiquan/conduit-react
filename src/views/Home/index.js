@@ -1,32 +1,19 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Tags from '../../components/Tags';
 import ArticleFeedNav from './ArticleFeedNav';
 import RouteWithSubRoutes from '../../components/RouteWithSubRoutes';
 
-import { fetchTags, fetchArticles } from '../../store/actions';
-
-class Home extends Component {ArticleFeedNav
+export default  class Home extends Component {ArticleFeedNav
   static propTypes = {
     fetchTags: PropTypes.func,
-    fetchArticles: PropTypes.func,
     tags: PropTypes.array,
-    articles: PropTypes.array,
-    articlesCount: PropTypes.number
   }
 
   static defaultProps = {
     fetchTags: null,
     tags: [],
-    fetchArticles: null,
-    articles: [],
-    articlesCount: 0
-  }
-
-  async componentDidMount() {
-    await this.props.fetchTags();
   }
 
   render() {
@@ -60,23 +47,3 @@ class Home extends Component {ArticleFeedNav
     )
   }
 }
-
-const mapStateToProps = ({ home }) => ({
-  tags: home.tags,
-  articles: home.articles,
-  articlesCount: home.articlesCount
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchTags: () => {
-    dispatch(fetchTags());
-  },
-  fetchArticles: () => {
-    dispatch(fetchArticles());
-  }
-});
-
-export default connect(
-  mapStateToProps, 
-  mapDispatchToProps
-)(Home);

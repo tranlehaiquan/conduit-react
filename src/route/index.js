@@ -10,6 +10,7 @@ import ArticleDetail from '../views/ArticleDetail';
 import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
 import ArticlesFeed from '../views/Home/ArticlesFeed';
 import ArticlesGlobal from '../views/Home/ArticlesGlobal';
+import parseQuery from '../components/parseQuery';
 
 const homeRouters = [
   {
@@ -19,13 +20,13 @@ const homeRouters = [
       {
         name: 'Home',
         path: '/',
-        component: ArticlesGlobal,
+        component: parseQuery(ArticlesGlobal),
         exact: true
       },
       {
         name: 'Feed',
         path: '/feed',
-        component: ArticlesFeed
+        component: parseQuery(ArticlesFeed)
       },
     ]
   },
@@ -80,6 +81,5 @@ export const mainRouters = homeRouters.map((router) => {
   if (meta && meta.requireAuth) {
     return <PrivateRoute key={path} component={component} path={path} {...rest} />
   }
-  // return <Route key={path} render={() => <p>test</p>} path={path} {...rest} />
   return <RouteWithSubRoutes key={path} {...router} />
 });

@@ -1,7 +1,21 @@
 import React, {PureComponent} from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class Tags extends PureComponent {
+import { fetchTags } from '../store/actions';
+
+class Tags extends PureComponent {
+  static propTypes = {
+    fetchTags: PropTypes.func,
+    tags: PropTypes.array,
+  }
+  
+  static defaultProps = {
+    fetchTags: null,
+    tags: []
+  }
+
   renderTags = () => {
     const tags = this.props.tags.map((tag) => {
       return(
@@ -11,6 +25,10 @@ export default class Tags extends PureComponent {
       );
     });
     return tags;
+  }
+
+  async componentDidMount() {
+    await this.props.fetchTags();
   }
 
   render() {
@@ -24,3 +42,18 @@ export default class Tags extends PureComponent {
     )
   }
 }
+
+const mapStateToProps = ({ home }) => ({
+  tags: home.tags,
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchTags: () => {
+    dispatch(fetchTags());
+  }
+});
+
+export default connect(
+  mapStateToProps, 
+  mapDispatchToProps
+)(Tags);

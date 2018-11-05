@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import ListArticles from '../../components/ListArticles.js';
 
-export default class ArticlesFeed extends Component {
+export default class ArticlesFeed extends PureComponent {
   render() {
-    return <ListArticles limit="9" feed={true}/>
+    return <ListArticles limit="9" articlesQueryParams={this.props.queryString} feed={true}/>
   }
 }

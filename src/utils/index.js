@@ -18,3 +18,7 @@ export const parseQueryString = ( queryString ) => {
   }
   return params;
 };
+
+export function getDisplayName(WrappedComponent) {
+  return WrappedComponent.displayName || WrappedComponent.name || 'Component';
+}
