@@ -61,7 +61,7 @@ export default class Pagination extends Component {
     return (
       <a href="" className="page-link"
         onClick={(e) => {
-          onChange(page - 1);
+          onChange(page);
           e.preventDefault();
         }}>
         { page }
@@ -75,7 +75,7 @@ export default class Pagination extends Component {
     const PageDotItem = <a className="page-link">...</a>;
 
     const pageItems = pages.map((page, index) => {
-      const itemStyle = classnames('page-item', current + 1 === page && 'active');
+      const itemStyle = classnames('page-item', current === page && 'active');
         return (
           <li className={itemStyle} key={page + index}>
             {
@@ -91,7 +91,7 @@ export default class Pagination extends Component {
   }
   
   render() {
-    const isFirst = this.props.current === 0;
+    const isFirst = this.props.current === 1;
     const isLast = this.props.current === this.props.pageCount;
 
     return(

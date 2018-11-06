@@ -7,8 +7,7 @@ import Pagination from './Pagination';
 import { connect } from 'react-redux';
 import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
-
-import { DEFAULT_LIMIT_ARTICLES } from './config';
+import omit from 'lodash/omit';
 
 class ListArticles extends Component {
   static propTypes = {
@@ -17,14 +16,12 @@ class ListArticles extends Component {
     articlesQueryParams: PropTypes.object,
     fetchArticles: PropTypes.func,
     history: PropTypes.object,
-    feed: PropTypes.bool,
-    limit: PropTypes.number
+    feed: PropTypes.bool
   };
 
   static defaultProps = {
     articles: [],
     articlesCount: 0,
-    limit: DEFAULT_LIMIT_ARTICLES,
     articlesQueryParams: {
     },
     fetchArticles: null,
@@ -33,18 +30,19 @@ class ListArticles extends Component {
   };
 
   state = {
-    page: this.props.articlesQueryParams.offset ? this.props.articlesQueryParams.offset / this.props.limit : 1,
-    query: this.props.articlesQueryParams
+    page: this.props.articlesQueryParams.page || 1,
+    query: omit(this.props.articlesQueryParams, 'page')
   }
 
-  async componentDidMount () {
-    const { articlesQueryParams, fetchArticles, feed } = this.props;
+  componentDidMount () {
+    const { fetchArticles, feed } = this.props;
+    const { query, page } = this.state;
+
     const params = Object.assign(
       {}, 
-      {offset: articlesQueryParams.offset}, 
-      articlesQueryParams,
-      );
-      
+      {offset: (page - 1) * query.limit}, 
+      query,
+    );
     fetchArticles(params, feed);
   }
 
@@ -59,21 +57,17 @@ class ListArticles extends Component {
    */
   componentDidUpdate (prevProps, prevState) {
     if(prevState.page !== this.state.page) {
-      const { articlesQueryParams, feed, fetchArticles, history, limit } = this.props;
+      const { feed, fetchArticles, history } = this.props;
+      const { query } = this.state;
       const { page } = this.state;
       const params = Object.assign(
         {}, 
-        articlesQueryParams,
-        {offset: page * limit}, 
+        query,
+        {offset: (page - 1) * query.limit}, 
       );
 
       fetchArticles(params, feed);
-
-      if(!page) {
-        history.push('/');
-      } else {
-        history.push(`/?page=${page + 1}`);
-      }
+      history.push(`/?page=${page}`);
     }
   }
 

@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import ListArticles from '../../components/ListArticles.js';
+import { DEFAULT_LIMIT_ARTICLES } from './config';
 
 export default class ArticlesGlobal extends PureComponent {
   render() {
-    const limit = 7;
+    const limit = DEFAULT_LIMIT_ARTICLES;
     const { page, ...rest } = this.props.queryString;
     const articlesQueryParams = {
-      offset: (page ? +page : 0) * limit,
+      page: page ? Number(page) : 1,
       limit,
-      ...rest 
+      ...rest
     }
 
-    return <ListArticles limit={limit} articlesQueryParams={articlesQueryParams}/>
+    return <ListArticles articlesQueryParams={articlesQueryParams}/>
   }
 }
