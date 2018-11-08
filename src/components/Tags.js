@@ -19,7 +19,7 @@ class Tags extends PureComponent {
   renderTags = () => {
     const tags = this.props.tags.map((tag) => {
       return(
-        <Link key={tag} to={`tag/${tag}`} className="tag-pill tag-default">
+        <Link key={tag} to={`?tag=${tag}`} className="tag-pill tag-default">
           { tag }
         </Link>
       );

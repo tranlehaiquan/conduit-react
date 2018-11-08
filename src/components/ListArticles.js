@@ -9,42 +9,45 @@ import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
 import omit from 'lodash/omit';
 
+
+/**
+ * ListArticles will recive
+ * articles, articlesCount
+ * articlesQueryParams params go with when call API articles
+ * feed is feed or not?
+ * offset is number use this to caculate to page number
+ */
 class ListArticles extends Component {
   static propTypes = {
     articles: PropTypes.array,
     articlesCount: PropTypes.number,
     articlesQueryParams: PropTypes.object,
+    feed: PropTypes.bool,
+    offset: PropTypes.number.isRequired,
     fetchArticles: PropTypes.func,
     history: PropTypes.object,
-    feed: PropTypes.bool
   };
 
   static defaultProps = {
     articles: [],
     articlesCount: 0,
-    articlesQueryParams: {
-    },
+    articlesQueryParams: {},
+    feed: false,
     fetchArticles: null,
     history: null,
-    feed: false
   };
 
-  state = {
-    page: this.props.articlesQueryParams.page || 1,
-    query: omit(this.props.articlesQueryParams, 'page')
-  }
+  // componentDidMount () {
+  //   const { fetchArticles, feed } = this.props;
+  //   const { query } = this.state;
 
-  componentDidMount () {
-    const { fetchArticles, feed } = this.props;
-    const { query, page } = this.state;
-
-    const params = Object.assign(
-      {}, 
-      {offset: (page - 1) * query.limit}, 
-      query,
-    );
-    fetchArticles(params, feed);
-  }
+  //   const params = Object.assign(
+  //     {}, 
+  //     {offset: (page - 1) * query.limit}, 
+  //     query,
+  //   );
+  //   fetchArticles(params, feed);
+  // }
 
   changePage = (page) => {
     this.setState(() => ({
@@ -72,9 +75,9 @@ class ListArticles extends Component {
   }
 
   render() {
-    const { articles, articlesCount, articlesQueryParams } = this.props;
+    const { articles, articlesCount, articlesQueryParams, offset } = this.props;
     const pageCount = Math.round( articlesCount / articlesQueryParams.limit );
-    const { page } = this.state;
+    const page = offset ? offset / articlesQueryParams.limit : 1;
 
     return (
       <React.Fragment>
