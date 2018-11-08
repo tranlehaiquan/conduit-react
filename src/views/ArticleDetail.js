@@ -10,9 +10,9 @@ export default class ArticleDetail extends Component {
             <h1>How to build webapps that scale</h1>
 
             <div className="article-meta">
-              <a href=""><img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" /></a>
+              <a href="..."><img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" /></a>
               <div className="info">
-                <a href="" className="author">Eric Simons</a>
+                <a href="..." className="author">Eric Simons</a>
                 <span className="date">January 20th</span>
               </div>
               <button className="btn btn-sm btn-outline-secondary">
@@ -49,7 +49,7 @@ export default class ArticleDetail extends Component {
             <div className="article-meta">
               <a href="profile.html"><img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" /></a>
               <div className="info">
-                <a href="" className="author">Eric Simons</a>
+                <a href="..." className="author">Eric Simons</a>
                 <span className="date">January 20th</span>
               </div>
 
@@ -88,11 +88,11 @@ export default class ArticleDetail extends Component {
                   <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 </div>
                 <div className="card-footer">
-                  <a href="" className="comment-author">
+                  <a href="..." className="comment-author">
                     <img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
                   </a>
                   &nbsp;
-                  <a href="" className="comment-author">Jacob Schmidt</a>
+                  <a href="..." className="comment-author">Jacob Schmidt</a>
                   <span className="date-posted">Dec 29th</span>
                 </div>
               </div>
@@ -102,11 +102,11 @@ export default class ArticleDetail extends Component {
                   <p className="card-text">With supporting text below as a natural lead-in to additional content.</p>
                 </div>
                 <div className="card-footer">
-                  <a href="" className="comment-author">
+                  <a href="..." className="comment-author">
                     <img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" className="comment-author-img" />
                   </a>
                   &nbsp;
-                  <a href="" className="comment-author">Jacob Schmidt</a>
+                  <a href="..." className="comment-author">Jacob Schmidt</a>
                   <span className="date-posted">Dec 29th</span>
                   <span className="mod-options">
                     <i className="ion-edit"></i>

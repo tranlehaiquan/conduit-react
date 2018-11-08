@@ -10,7 +10,7 @@ import ArticleDetail from '../views/ArticleDetail';
 import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
 import ArticlesFeed from '../views/Home/ArticlesFeed';
 import ArticlesGlobal from '../views/Home/ArticlesGlobal';
-import parseQuery from '../components/parseQuery';
+import articlesWithParams from '../components/ArticlesWithParams';
 
 const homeRouters = [
   {
@@ -20,13 +20,13 @@ const homeRouters = [
       {
         name: 'Home',
         path: '/',
-        component: parseQuery(ArticlesGlobal),
+        component: articlesWithParams(ArticlesGlobal),
         exact: true
       },
       {
         name: 'Feed',
         path: '/feed',
-        component: parseQuery(ArticlesFeed)
+        component: articlesWithParams(ArticlesFeed)
       },
     ]
   },

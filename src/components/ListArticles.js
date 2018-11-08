@@ -7,8 +7,6 @@ import Pagination from './Pagination';
 import { connect } from 'react-redux';
 import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
-import omit from 'lodash/omit';
-
 
 /**
  * ListArticles will recive
@@ -22,51 +20,47 @@ class ListArticles extends Component {
     articles: PropTypes.array,
     articlesCount: PropTypes.number,
     articlesQueryParams: PropTypes.object,
+    fetchArticles: PropTypes.func,
     feed: PropTypes.bool,
     offset: PropTypes.number.isRequired,
-    fetchArticles: PropTypes.func,
     history: PropTypes.object,
   };
 
   static defaultProps = {
     articles: [],
     articlesCount: 0,
+    fetchArticles: null,
     articlesQueryParams: {},
     feed: false,
-    fetchArticles: null,
     history: null,
   };
 
-  // componentDidMount () {
-  //   const { fetchArticles, feed } = this.props;
-  //   const { query } = this.state;
+  componentDidMount () {
+    const { fetchArticles, feed, articlesQueryParams, offset } = this.props;
 
-  //   const params = Object.assign(
-  //     {}, 
-  //     {offset: (page - 1) * query.limit}, 
-  //     query,
-  //   );
-  //   fetchArticles(params, feed);
-  // }
+    const params = Object.assign(
+      {},
+      {offset}, 
+      articlesQueryParams
+    );
+    fetchArticles(params, feed);
+  }
 
   changePage = (page) => {
-    this.setState(() => ({
-      page: page
-    }));
+    this.props.history.push(`/?page=${page}`);
   }
 
   /**
    * Make action when offset page change
    */
   componentDidUpdate (prevProps, prevState) {
-    if(prevState.page !== this.state.page) {
-      const { feed, fetchArticles, history } = this.props;
-      const { query } = this.state;
-      const { page } = this.state;
+    if(prevProps.offset !== this.props.offset) {
+      const { feed, fetchArticles, history, articlesQueryParams, offset } = this.props;
+      const page = offset ? (offset / articlesQueryParams.limit) + 1 : 1;
       const params = Object.assign(
-        {}, 
-        query,
-        {offset: (page - 1) * query.limit}, 
+        {},
+        {offset}, 
+        articlesQueryParams
       );
 
       fetchArticles(params, feed);
@@ -77,7 +71,7 @@ class ListArticles extends Component {
   render() {
     const { articles, articlesCount, articlesQueryParams, offset } = this.props;
     const pageCount = Math.round( articlesCount / articlesQueryParams.limit );
-    const page = offset ? offset / articlesQueryParams.limit : 1;
+    const page = offset ? (offset / articlesQueryParams.limit) + 1 : 1;
 
     return (
       <React.Fragment>

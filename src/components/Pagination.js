@@ -59,7 +59,7 @@ export default class Pagination extends Component {
   renderPageItem = (page) => {
     const { onChange } = this.props;
     return (
-      <a href="" className="page-link"
+      <a href={page} className="page-link"
         onClick={(e) => {
           onChange(page);
           e.preventDefault();
@@ -72,7 +72,7 @@ export default class Pagination extends Component {
   renderPagination = () => {
     const pages = this.pagination();
     const { current } = this.props;
-    const PageDotItem = <a className="page-link">...</a>;
+    const PageDotItem = <a href="..." className="page-link">...</a>;
 
     const pageItems = pages.map((page, index) => {
       const itemStyle = classnames('page-item', current === page && 'active');
@@ -100,7 +100,7 @@ export default class Pagination extends Component {
           <li className={classnames("page-item", isFirst && 'disabled')}>
             <a 
               onClick={this.goPreviousPage}
-              href="" 
+              href="..." 
               className="page-link">
               Previous
             </a>
@@ -111,7 +111,7 @@ export default class Pagination extends Component {
           <li className={classnames("page-item", isLast && 'disabled')}>
             <a 
               onClick={this.goNextPage}
-              href="" 
+              href="..." 
               className="page-link">
               Next
             </a>

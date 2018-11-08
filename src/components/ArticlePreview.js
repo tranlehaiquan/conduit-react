@@ -26,7 +26,7 @@ export default class PostPreview extends Component {
             <i className="ion-heart"></i> { favoritesCount }
           </button>
         </div>
-        <a href="" className="preview-link">
+        <a href="..." className="preview-link">
           <h3>{ title }</h3>
           <p>{ description }</p>
           <span>Read more...</span>
@@ -46,7 +46,7 @@ function Author(props) {
         <img alt="profile" src={image} />
       </a>
       <div className="info">
-        <a href="" className="author">{ username }</a>
+        <a href="..." className="author">{ username }</a>
         <span className="date">{ createdAt }</span>
       </div>
     </React.Fragment>

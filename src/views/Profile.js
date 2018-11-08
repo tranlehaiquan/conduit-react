@@ -32,26 +32,26 @@ export default class Profile extends Component {
               <div classNames="articles-toggle">
                 <ul classNames="nav nav-pills outline-active">
                   <li classNames="nav-item">
-                    <a classNames="nav-link active" href="">My Articles</a>
+                    <a classNames="nav-link active" href="/">My Articles</a>
                   </li>
                   <li classNames="nav-item">
-                    <a classNames="nav-link" href="">Favorited Articles</a>
+                    <a classNames="nav-link" href="favorited">Favorited Articles</a>
                   </li>
                 </ul>
               </div>
 
               <div classNames="article-preview">
                 <div classNames="article-meta">
-                  <a href=""><img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" /></a>
+                  <a href="..."><img alt="Eric Simons" src="http://i.imgur.com/Qr71crq.jpg" /></a>
                   <div classNames="info">
-                    <a href="" classNames="author">Eric Simons</a>
+                    <a href="..." classNames="author">Eric Simons</a>
                     <span classNames="date">January 20th</span>
                   </div>
                   <button classNames="btn btn-outline-primary btn-sm pull-xs-right">
                     <i classNames="ion-heart"></i> 29
                   </button>
                 </div>
-                <a href="" classNames="preview-link">
+                <a href="..." classNames="preview-link">
                   <h1>How to build webapps that scale</h1>
                   <p>This is the description for the post.</p>
                   <span>Read more...</span>
@@ -60,16 +60,16 @@ export default class Profile extends Component {
 
               <div classNames="article-preview">
                 <div classNames="article-meta">
-                  <a href=""><img alt="Eric Simons" src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
+                  <a href="..."><img alt="Eric Simons" src="http://i.imgur.com/N4VcUeJ.jpg" /></a>
                   <div classNames="info">
-                    <a href="" classNames="author">Albert Pai</a>
+                    <a href="..." classNames="author">Albert Pai</a>
                     <span classNames="date">January 20th</span>
                   </div>
                   <button classNames="btn btn-outline-primary btn-sm pull-xs-right">
                     <i classNames="ion-heart"></i> 32
                   </button>
                 </div>
-                <a href="" classNames="preview-link">
+                <a href="..." classNames="preview-link">
                   <h1>The song you won't ever stop singing. No matter how hard you try.</h1>
                   <p>This is the description for the post.</p>
                   <span>Read more...</span>
