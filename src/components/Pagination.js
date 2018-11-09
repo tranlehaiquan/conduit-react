@@ -116,23 +116,21 @@ export default class Pagination extends Component {
       <nav>
         <ul className="pagination">
           <li className={classnames("page-item", isFirst && 'disabled')}>
-            <a 
+            <button
               onClick={this.goPreviousPage}
-              href=""
               className="page-link">
               Previous
-            </a>
+            </button>
           </li>
           {
             this.renderPagination()
           }
           <li className={classnames("page-item", isLast && 'disabled')}>
-            <a 
+            <button
               onClick={this.goNextPage}
-              href=""
               className="page-link">
               Next
-            </a>
+            </button>
           </li>
         </ul>
       </nav>
