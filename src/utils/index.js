@@ -23,3 +23,21 @@ export const parseQueryString = ( queryString ) => {
 export function getDisplayName(WrappedComponent) {
   return WrappedComponent.displayName || WrappedComponent.name || 'Component';
 }
+
+/**
+ * Parse Object to String
+ * @param {Object} query 
+ * @returns {String}
+ */
+export const queryToString = ( query ) => {
+  if( !Object.keys(query).length ) return "";
+
+  let queryString = "";
+
+  Object.entries(query).forEach((queryItem, index, queryArray) => {
+    const isLast = queryArray.length - 1 === index;
+    queryString += `${queryItem[0]}=${queryItem[1]}${isLast ? '' : '&'}`;
+  });
+
+  return queryString;
+}

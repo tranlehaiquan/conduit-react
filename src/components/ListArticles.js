@@ -7,6 +7,9 @@ import Pagination from './Pagination';
 import { connect } from 'react-redux';
 import { fetchArticles } from '../store/actions';
 import { withRouter } from 'react-router-dom'
+import { queryToString } from '../utils';
+
+import isEqual from 'lodash/isEqual';
 
 /**
  * ListArticles will recive
@@ -47,24 +50,41 @@ class ListArticles extends Component {
   }
 
   changePage = (page) => {
-    this.props.history.push(`/?page=${page}`);
+    const { articlesQueryParams } = this.props;
+    const urlQueryString = queryToString(articlesQueryParams);
+
+    if(urlQueryString) {
+      this.props.history.push(`/?page=${page}&${urlQueryString}`);
+    } else {
+      this.props.history.push(`/?page=${page}`);
+    }
   }
 
   /**
    * Make action when offset page change
    */
   componentDidUpdate (prevProps, prevState) {
-    if(prevProps.offset !== this.props.offset) {
-      const { feed, fetchArticles, history, articlesQueryParams, offset } = this.props;
+    const { offset, articlesQueryParams } = this.props;
+    const isQueryEqual = isEqual(prevProps.articlesQueryParams, articlesQueryParams);
+
+    if(prevProps.offset !== offset || !isQueryEqual) {
+      const { feed, fetchArticles, history } = this.props;
       const page = offset ? (offset / articlesQueryParams.limit) + 1 : 1;
       const params = Object.assign(
         {},
-        {offset}, 
+        {offset},
         articlesQueryParams
       );
 
+      const urlQueryString = queryToString(articlesQueryParams);
+
       fetchArticles(params, feed);
-      history.push(`/?page=${page}`);
+
+      if(urlQueryString) {
+        history.push(`/?page=${page}&${urlQueryString}`);
+      } else {
+        history.push(`/?page=${page}`);
+      }
     }
   }
 

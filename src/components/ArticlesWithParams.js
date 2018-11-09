@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { parseQueryString, getDisplayName } from '../utils/index';
 import { DEFAULT_LIMIT_ARTICLES } from './config';
 
+import PropTypes from 'prop-types';
 import defaults from 'lodash/defaults';
 
 /**
@@ -12,6 +13,14 @@ import defaults from 'lodash/defaults';
  */
 function articlesWithParams(WrapComponent) {
   class ArticlesWithParams extends Component {
+    static propTypes = {
+      history: PropTypes.object
+    };
+
+    static defaultProps = {
+      history: null
+    }
+
     constructor(props) {
       super(props);
 
@@ -25,6 +34,26 @@ function articlesWithParams(WrapComponent) {
         page: page ? Number(page) : 1,
         query: defaultsQuery
       }
+    }
+
+    componentDidMount() {
+      const { history } = this.props;
+
+      this.unListen = history.listen((location, action) => {
+        const {page, ...query} = parseQueryString(location.search);
+        const defaultsQuery = defaults(query, {
+          limit: DEFAULT_LIMIT_ARTICLES
+        });
+
+        this.setState((preState) => ({
+          page: page ? Number(page) : 1,
+          query: defaultsQuery
+        }));
+      });
+    }
+
+    componentWillUnmount() {
+      this.unListen();
     }
 
     render() {
