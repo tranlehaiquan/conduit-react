@@ -2,6 +2,25 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
+const PageDotItem = (
+  <span
+    className="page-link" 
+    onClick={(e) => e.preventDefault()}
+  >
+    ...
+  </span>
+);
+
+/**
+ * TODO
+ * Maybe pagiation link href
+ * can caculate base on query
+ * Like https://localhost:3000/?page=3&tag=hello
+ * -> Previous: href https://localhost:3000/?page=2&tag=hello
+ * -> Next: href https://localhost:3000/?page=2&tag=hello
+ * Auto with page number n -> https://localhost:3000/?page=n&tag=hello
+ */
+
 export default class Pagination extends Component {
   static propTypes = {
     current: PropTypes.number,
@@ -72,7 +91,6 @@ export default class Pagination extends Component {
   renderPagination = () => {
     const pages = this.pagination();
     const { current } = this.props;
-    const PageDotItem = <a href="..." className="page-link">...</a>;
 
     const pageItems = pages.map((page, index) => {
       const itemStyle = classnames('page-item', current === page && 'active');
@@ -100,7 +118,7 @@ export default class Pagination extends Component {
           <li className={classnames("page-item", isFirst && 'disabled')}>
             <a 
               onClick={this.goPreviousPage}
-              href="..." 
+              href=""
               className="page-link">
               Previous
             </a>
@@ -111,7 +129,7 @@ export default class Pagination extends Component {
           <li className={classnames("page-item", isLast && 'disabled')}>
             <a 
               onClick={this.goNextPage}
-              href="..." 
+              href=""
               className="page-link">
               Next
             </a>
