@@ -16,6 +16,7 @@ const homeRouters = [
   {
     path: '/',
     component: Home,
+    exact: true,
     childrent: [
       {
         name: 'Home',
