@@ -1,7 +1,10 @@
 # What diff from Realworld.io
 
-1. Reactjs version 16.6
-2. Home screen
+## TODO
+
+- Common component (Input, Button, etc)
+
+Search more with keyword TODO in `src` folder
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 

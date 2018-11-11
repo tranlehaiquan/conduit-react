@@ -11,3 +11,13 @@ export const requestArticles = (params) => {
 export const requestFeedArticles = (params) => {
   return axios.get('/articles/feed', { params });
 }
+
+export const userLogin = (email, password) => {
+  console.log(email, password);
+  return axios.post('/users/login', {
+    user: {
+      email,
+      password
+    }
+  })
+}
