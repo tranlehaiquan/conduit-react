@@ -25,7 +25,6 @@ export default class Login extends Component {
   }
 
   onSubmit = async (e) => {
-    console.log(e.preventDefault);
     e.preventDefault();
     e.persist(); // place here beacause after async e is gone
     const { email, password } = this.state;
@@ -34,8 +33,6 @@ export default class Login extends Component {
     } catch (error) {
       console.log('error', error);
     }
-    console.log(e.preventDefault);
-    e.preventDefault();
   }
 
   render() {
