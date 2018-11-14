@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { userLogin } from '../../api';
+import Errors from '../../components/Errors';
+import { setUser } from '../../store/actions';
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
 
@@ -11,7 +14,7 @@ export default class Login extends Component {
       loading: false,
       email: '',
       password: '',
-      erros: {}
+      errors: {}
     }
   }
 
@@ -28,15 +31,32 @@ export default class Login extends Component {
     e.preventDefault();
     e.persist(); // place here beacause after async e is gone
     const { email, password } = this.state;
+    const { setUser } = this.props;
     try {
-      await userLogin(email, password);
-    } catch (error) {
-      console.log('error', error);
+      this.setLoading(true);
+      const { data } = await userLogin(email, password);
+      setUser(data.user);
+      this.props.history.push('/');
+    } catch ({response}) {
+      // turn loading off
+      this.setLoading(false);
+      this.setState(() => ({
+        errors: response.data.errors
+      }))
     }
   }
 
+  /**
+   * @param {Boolean} loadingState 
+   */
+  setLoading = (loadingState) => {
+    this.setState({
+      loading: loadingState
+    })
+  }
+
   render() {
-    const { email, password } = this.state;
+    const { email, password, errors, loading } = this.state;
 
     return(
       <div className="auth-page">
@@ -47,7 +67,7 @@ export default class Login extends Component {
             <p className="text-xs-center">
               <Link to="/register">Need an account?</Link>
             </p>
-            <ul className="error-messages"></ul>
+            <Errors errors={errors}/>
             <form onSubmit={this.onSubmit}>
               <fieldset className="form-group">
                 <input 
@@ -58,6 +78,7 @@ export default class Login extends Component {
                   value={email}
                   onChange={this.onchange}
                   required
+                  disabled={loading}
                 />
               </fieldset>
               <fieldset className="form-group">
@@ -69,6 +90,7 @@ export default class Login extends Component {
                   value={password}
                   onChange={this.onchange}
                   required
+                  disabled={loading}
                 />
               </fieldset>
               <button
@@ -85,3 +107,13 @@ export default class Login extends Component {
     )
   }
 }
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = dispatch => ({
+  setUser: (user) => {
+    dispatch(setUser(user))
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

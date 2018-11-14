@@ -21,7 +21,7 @@ export default class Errors extends Component {
   }
 
   render() {
-    const { errors } = props;
+    const { errors } = this.props;
 
     if (!Object.keys(errors).length) return null;
   

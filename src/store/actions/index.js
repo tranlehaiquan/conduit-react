@@ -1,4 +1,5 @@
 import { requestTags, requestArticles, requestFeedArticles } from '../../api';
+import omit from 'lodash/omit';
 
 export const setArticles = (articles) => ({
   type: 'SET_ARTICLES',
@@ -9,6 +10,19 @@ export const setTags = (tags) => ({
   type: 'SET_TAGS',
   payload: tags
 });
+
+export const setUser = (user) => {
+  return {
+    type: 'SET_USER',
+    payload: omit(user, 'token')
+  }
+}
+
+export const cleanUser = () => {
+  return {
+    type: 'CLEAN_USER'
+  }
+}
 
 // Action creator return a function
 // because it is async

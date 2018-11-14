@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Redirect} from "react-router-dom";
 import Home from '../views/Home/';
-import Login from '../views/authe/Login';
-import Register from '../views/authe/Register';
+import Login from '../views/Authe/Login';
+import Register from '../views/Authe/Register';
 import Profile from '../views/Profile';
 import Setting from '../views/Setting';
 import ArticleEditor from '../views/ArticleEditor';

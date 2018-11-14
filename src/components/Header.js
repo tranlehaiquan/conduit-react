@@ -1,13 +1,8 @@
 import React, {Component} from 'react';
-import {Link, NavLink} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-const Logo = function() {
-  return (
-    <Link to="/" className="navbar-brand" href="index.html">
-      conduit
-    </Link>
-  )
-}
+import NavBrand from '../components/NavBrand';
+import Auth from '../components/Auth';
 
 const beforeLoginNavLinks = [
   {
@@ -27,6 +22,11 @@ const beforeLoginNavLinks = [
 
 const afterLoginNavLinks = [
   {
+    name: 'Home',
+    to: '/',
+    exact: true
+  },
+  {
     name: 'New Post',
     to: '/articleEditor',
     iconName: 'ion-compose'
@@ -35,10 +35,6 @@ const afterLoginNavLinks = [
     name: 'Setting',
     to: '/setting',
     iconName: 'ion-gear-a'
-  },
-  {
-    name: 'Logout',
-    to: '/logout'
   }
 ];
 
@@ -63,16 +59,46 @@ function renderNavLinks(navLinks) {
   });
   return links;
 }
+
 export default class Header extends Component {
   render() {
-    const isAuth = false;
-    const navLinks = isAuth ? afterLoginNavLinks : beforeLoginNavLinks;
+    const NavLinksLogged = renderNavLinks(afterLoginNavLinks);
+    const NavLinks = renderNavLinks(beforeLoginNavLinks);
     return(
       <nav className="navbar navbar-light">
         <div className="container">
-          <Logo/>
+          <NavBrand/>
           <ul className="nav navbar-nav pull-xs-right">
-            {renderNavLinks(navLinks)}
+            <Auth
+              renderLoggedIn={() => {
+                return NavLinksLogged
+              }}
+              renderLoggedOut={() => {
+                return NavLinks
+              }}
+            />
+
+            <Auth
+              renderLoggedIn={({ auth, logout}) => {
+                return (
+                  <React.Fragment>
+                    <li className="nav-item">
+                      <NavLink className="nav-link" to={`/profile/${auth.email}`}>
+                        { auth.email }
+                      </NavLink>
+                    </li>
+                    <li className="nav-item">
+                      <a href="/#" className="nav-link" onClick={logout}>
+                        Logout
+                      </a>
+                    </li>
+                  </React.Fragment>
+                )
+              }}
+              renderLoggedOut={() => {
+                return null
+              }}
+            />
           </ul>
         </div>
       </nav>
