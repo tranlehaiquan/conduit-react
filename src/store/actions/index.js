@@ -1,5 +1,6 @@
 import { requestTags, requestArticles, requestFeedArticles } from '../../api';
 import omit from 'lodash/omit';
+import { deletedTokenFromCookie, setTokenFromCookie } from '../../utils/cookie';
 
 export const setArticles = (articles) => ({
   type: 'SET_ARTICLES',
@@ -12,6 +13,7 @@ export const setTags = (tags) => ({
 });
 
 export const setUser = (user) => {
+  setTokenFromCookie(user.token);
   return {
     type: 'SET_USER',
     payload: omit(user, 'token')
@@ -19,6 +21,7 @@ export const setUser = (user) => {
 }
 
 export const cleanUser = () => {
+  deletedTokenFromCookie();
   return {
     type: 'CLEAN_USER'
   }

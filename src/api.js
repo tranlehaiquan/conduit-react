@@ -20,3 +20,7 @@ export const userLogin = (email, password) => {
     }
   })
 }
+
+export const getCurrentUser = () => {
+  return axios.get('/user');
+}

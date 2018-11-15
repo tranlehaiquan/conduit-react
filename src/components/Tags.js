@@ -16,6 +16,10 @@ class Tags extends PureComponent {
     tags: []
   }
 
+  componentDidUpdate() {
+    console.log('update')
+  }
+
   renderTags = () => {
     const tags = this.props.tags.map((tag) => {
       return(

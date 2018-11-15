@@ -11,6 +11,7 @@ import RouteWithSubRoutes from '../components/RouteWithSubRoutes';
 import ArticlesFeed from '../views/Home/ArticlesFeed';
 import ArticlesGlobal from '../views/Home/ArticlesGlobal';
 import articlesWithParams from '../components/ArticlesWithParams';
+import Auth from '../components/Auth';
 
 const homeRouters = [
   {
@@ -66,13 +67,18 @@ const homeRouters = [
   }
 ];
 
-const isLogin = false;
-
 const PrivateRoute = ({component: Component, ...rest}) => (
   <Route
     {...rest}
     render={(props) => {
-      return isLogin ? <Component {...props}/> : <Redirect to="/register" />
+      return <Auth
+        renderLoggedIn={() => (
+          <Component {...props}/>
+        )}
+        renderLoggedOut={() => (
+          <Redirect to="/register" />
+        )}
+      />
     }}
   />
 );
