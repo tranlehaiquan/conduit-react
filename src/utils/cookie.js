@@ -16,6 +16,7 @@ export const deletedTokenFromCookie = () => {
 
 export const getCookies = () => {
   const cookieString = document.cookie;
+  if(!cookieString) return {}
   const listCookie = cookieString.split(";");
   const cookie = {};
 
