@@ -1,15 +1,10 @@
 # What diff from Realworld.io
 
-## TODO
+## Noted with nextjs
 
-- Common component (Input, Button, etc)
+- Login, fetch user by token happen on client because i don't want server block render every request.
+- Login -> Get token -> Save in cookie 
 
-Search more with keyword TODO in `src` folder
-
-This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
-
-Below you will find some information on how to perform common tasks.<br>
-You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Table of Contents
 
