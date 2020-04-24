@@ -36,7 +36,7 @@ const Header: NextPage = () => {
           <Link href="/">
             <a className={classes.homePage}>Conduit</a>
           </Link>
-
+          
           <Navigation />
         </div>
       </Container>

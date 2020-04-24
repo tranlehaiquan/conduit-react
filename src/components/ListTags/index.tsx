@@ -34,12 +34,13 @@ const ListTags: React.FunctionComponent<ListTagsProps> = ({ tags }) => {
   const classes = useStyles();
   const router = useRouter();
   const { tag: currentTag } = router.query;
+  const currentPath = router.pathname;
 
   return (
     <div className={classes.root}>
       <Typo className={classes.title}>Popular Tags</Typo>
       {tags.map((tag) => (
-        <Link key={tag} href={`/?tag=${tag}`}>
+        <Link key={tag} href={`${currentPath}?tag=${tag}`}>
           <a className={cls(classes.tag, currentTag === tag && classes.active )}>{tag}</a>
         </Link>
       ))}

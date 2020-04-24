@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 import Header from '../Header';
 import Footer from '../Footer';
+import FullHeight from '../FullHeight';
 
 type NextPageProps = {
   title?: string;
@@ -23,7 +24,9 @@ const Layout: NextPage<NextPageProps> = (props) => {
         <title>{ title || 'Nextjs Realworld' }</title>
       </Head>
       <Header />
-      { children }      
+        <FullHeight>
+          { children }
+        </FullHeight>
       <Footer />
     </React.Fragment>
   )

@@ -24,10 +24,6 @@ const authenticatedNavigation = [
     label: 'Settings',
     to: '/settings',
   },
-  {
-    label: 'Logout',
-    to: '/logout',
-  },
 ];
 
 const useStyles = makeStyles(({ spacing }) => ({
@@ -44,16 +40,22 @@ const useStyles = makeStyles(({ spacing }) => ({
 
 const Navigation: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { isAuthenticated } = useContext(AuthContext);
-  
+  const { isAuthenticated, user } = useContext(AuthContext);
+
   const Logined: React.FunctionComponent = () => {
     return (
       <>
-        {gestNavigation.map(({ label, to }) => (
+        {authenticatedNavigation.map(({ label, to }) => (
           <Link href={to} key={label}>
             <a className={classes.link}>{label}</a>
           </Link>
         ))}
+        <Link href="/profile">
+          <a className={classes.link}>{user?.username}</a>
+        </Link>
+        <Link href="/logout">
+          <a className={classes.link}>Logout</a>
+        </Link>
       </>
     );
   };
@@ -61,7 +63,7 @@ const Navigation: React.FunctionComponent = () => {
   const Guest: React.FunctionComponent = () => {
     return (
       <>
-        {authenticatedNavigation.map(({ label, to }) => (
+        {gestNavigation.map(({ label, to }) => (
           <Link href={to} key={label}>
             <a className={classes.link}>{label}</a>
           </Link>
@@ -72,8 +74,8 @@ const Navigation: React.FunctionComponent = () => {
 
   return (
     <div className={classes.root}>
-      {isAuthenticated && <Guest />}
-      {!isAuthenticated && <Logined />}
+      {!isAuthenticated && <Guest />}
+      {isAuthenticated && <Logined />}
     </div>
   );
 };

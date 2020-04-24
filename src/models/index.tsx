@@ -22,7 +22,8 @@ export interface ArticleModel {
 
 export interface ResponseGetArticle {
   articles: ArticleModel[],
-  articleCount: number,
+  articlesCount: number,
+  limit: number,
 };
 
 export type ResponseGetTags = string[];
@@ -44,4 +45,9 @@ export interface UserModel {
 export interface TokenModel {
   token: string;
   exp: number;
+};
+
+export interface ResponseError {
+  statusCode: number;
+  error: string;
 };

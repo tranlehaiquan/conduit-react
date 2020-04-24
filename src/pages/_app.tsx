@@ -4,9 +4,9 @@ import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import GlobalCss from '../globalCss';
-
 import AuthProvider from '../lib/AuthProvider';
 import theme from '../theme';
+import Layout from '../components/Layout';
 
 const MyApp = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -30,7 +30,9 @@ const MyApp = (props: AppProps) => {
             <CssBaseline />
             <GlobalCss />
           <AuthProvider>
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </AuthProvider>
         </ThemeProvider>
     </React.Fragment>

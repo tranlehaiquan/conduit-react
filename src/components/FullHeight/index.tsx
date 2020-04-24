@@ -4,7 +4,7 @@ import cls from 'clsx';
 
 const useStyles = makeStyles(() => ({
   root: ({ height }: {height?: number | string}) => ({
-    height: height || `calc(100vh - 120px)`,
+    minHeight: height || `calc(100vh - 120px)`,
   }),
 }));
 
@@ -20,7 +20,9 @@ const FullHeight: FunctionComponent<FullHeightProps> = ({ children, className, .
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if(divRef?.current?.offsetHeight) setHeight(divRef?.current?.offsetHeight);
+    if(divRef?.current?.offsetHeight) {
+      setHeight(screen.height - 120);
+    }
   }, []);
   
   return (
