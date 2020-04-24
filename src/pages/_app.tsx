@@ -20,23 +20,26 @@ const MyApp = (props: AppProps) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>My page</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <GlobalCss />
-          <AuthProvider>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-          </AuthProvider>
-        </ThemeProvider>
-    </React.Fragment>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <GlobalCss />
+        <AuthProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </AuthProvider>
+      </ThemeProvider>
+    </>
   );
-}
+};
 
-export default MyApp; 
+export default MyApp;

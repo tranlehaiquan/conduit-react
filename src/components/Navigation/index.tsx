@@ -7,7 +7,7 @@ import AuthContext from '../../lib/AuthContext';
 const gestNavigation = [
   {
     label: 'Login',
-    to: '/login'
+    to: '/login',
   },
   {
     label: 'Register',
@@ -18,7 +18,7 @@ const gestNavigation = [
 const authenticatedNavigation = [
   {
     label: 'New Post',
-    to: '/editor'
+    to: '/editor',
   },
   {
     label: 'Settings',
@@ -27,15 +27,13 @@ const authenticatedNavigation = [
 ];
 
 const useStyles = makeStyles(({ spacing }) => ({
-  root: {
-
-  },
+  root: {},
   link: {
     textDecoration: 'none',
     color: 'rgba(0,0,0,.3)',
     padding: spacing(2),
     fontSize: 16,
-  }
+  },
 }));
 
 const Navigation: React.FunctionComponent = () => {
@@ -69,7 +67,7 @@ const Navigation: React.FunctionComponent = () => {
           </Link>
         ))}
       </>
-    )
+    );
   };
 
   return (

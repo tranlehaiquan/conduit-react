@@ -4,6 +4,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 // If this is located at pages/api/preview.js, then
 // open /api/preview from your browser.
 export default (req: NextApiRequest, res: NextApiResponse) => {
-  res.setPreviewData({})
-  res.end('Preview mode enabled')
-}
+  res.setPreviewData({});
+  res.end('Preview mode enabled');
+};

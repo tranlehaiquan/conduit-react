@@ -32,33 +32,35 @@ const useStyles = makeStyles(({ spacing }) => ({
 const Home: NextPage<HomeProps> = ({ articles, tags }) => {
   const classes = useStyles();
   const router = useRouter();
-  const page: number = isNaN(Number(router.query.page)) ? 1 : Number(router.query.page);
+  const page: number = Number.isNaN(Number(router.query.page))
+    ? 1
+    : Number(router.query.page);
   const pageCount = ceil(articles.articlesCount / articles.limit);
   const { tag } = router.query;
 
   function handleChangePage(event: React.ChangeEvent<unknown>, value: number) {
     const tagQuery = tag ? `&tag=${router.query.tag}` : '';
-    router.push(`/?page=${value}` + tagQuery);
+    router.push(`/?page=${value}${tagQuery}`);
   }
 
   return (
     <>
       <Banner />
       <div className={classes.root}>
-        <Container maxWidth="md" >
-          <Grid container >
+        <Container maxWidth="md">
+          <Grid container>
             <Grid item md={8} xs={12}>
               <FeedTabs />
               {articles.articles.map((article: ArticleModel) => (
                 <ArticlePreview key={article.id} article={article} />
               ))}
-              {pageCount > 1 &&
+              {pageCount > 1 && (
                 <Pagination
                   page={page}
                   count={pageCount}
                   onChange={handleChangePage}
                 />
-              }
+              )}
             </Grid>
             <Grid item md={4} xs={12}>
               <ListTags tags={tags} />
@@ -67,13 +69,16 @@ const Home: NextPage<HomeProps> = ({ articles, tags }) => {
         </Container>
       </div>
     </>
-  )
+  );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const [ articles, tags ] = await Promise.all([ getListArtilce(ctx.query), getListTag() ]);
+  const [articles, tags] = await Promise.all([
+    getListArtilce(ctx.query),
+    getListTag(),
+  ]);
 
-  return { props: { articles, tags }};
-}
+  return { props: { articles, tags } };
+};
 
 export default Home;

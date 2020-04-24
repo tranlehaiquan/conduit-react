@@ -1,4 +1,3 @@
-import React from 'react'
 import { NextPage } from 'next';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
@@ -19,11 +18,7 @@ const useStyles = makeStyles(({ spacing }) => ({
 const Footer: NextPage = () => {
   const classes = useStyles();
 
-  return (
-    <footer className={classes.root}>
-      Fork on GitHub
-    </footer>
-  )
-}
+  return <footer className={classes.root}>Fork on GitHub</footer>;
+};
 
 export default Footer;

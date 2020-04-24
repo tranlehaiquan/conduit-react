@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import Link from 'next/link';
 import Typo from '@material-ui/core/Typography';
 import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { vi } from 'date-fns/locale'
+import { vi } from 'date-fns/locale';
 
 import { ArticleModel } from '../../models';
 
@@ -13,9 +13,7 @@ const useStyle = makeStyles(({ spacing, palette }) => ({
     paddingBottom: spacing(3),
     borderTop: '1px solid rgba(0,0,0,.1)',
   },
-  title: {
-
-  },
+  title: {},
   titleLink: {
     textDecoration: 'none',
     color: '#000',
@@ -32,7 +30,7 @@ const useStyle = makeStyles(({ spacing, palette }) => ({
   },
   author: {
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   authorImg: {
     height: 30,
@@ -47,7 +45,7 @@ const useStyle = makeStyles(({ spacing, palette }) => ({
   },
   timeDistance: {
     color: palette.text.secondary,
-  }
+  },
 }));
 
 type ArticlePreviewProps = {
@@ -60,25 +58,35 @@ const ArticlePreview: NextPage<ArticlePreviewProps> = ({ article }) => {
 
   return (
     <div className={classes.root}>
+      <Link href="/article/[slug]" as={`/article/${article.slug}`}>
+        <a className={classes.titleLink}>
+          <Typo variant="h6" component="h3">
+            {article.title}
+          </Typo>
+          <Typo variant="subtitle1">{article.description}</Typo>
 
-    <Link href="/article/[slug]" as={`/article/${article.slug}`}>
-      <a className={classes.titleLink}>
-        <Typo variant="h6" component="h3">{article.title}</Typo>
-        <Typo variant="subtitle1">{article.description}</Typo>
+          <div className={classes.author}>
+            <img
+              src={article.author.image}
+              alt={article.author.username}
+              className={classes.authorImg}
+            />
+            <p className={classes.authorName}>{article.author.username}</p>
+            <p className={classes.timeDistance}>
+              {formatDistanceToNow(new Date(article.createdAt), { locale: vi })}{' '}
+              trước
+            </p>
+          </div>
 
-        <div className={classes.author}>
-          <img src={article.author.image} alt={article.author.username} className={classes.authorImg} />
-          <p className={classes.authorName}>{article.author.username}</p>
-          <p className={classes.timeDistance}>{formatDistanceToNow(new Date(article.createdAt), { locale: vi })} trước</p>
-        </div>
-
-        {haveTags && (
-          <Typo variant="subtitle2" >{article.tagList.map((tag) => tag).join(', ')}</Typo>
-        )}
-      </a>  
-    </Link>
+          {haveTags && (
+            <Typo variant="subtitle2">
+              {article.tagList.map((tag) => tag).join(', ')}
+            </Typo>
+          )}
+        </a>
+      </Link>
     </div>
-  )
-}
+  );
+};
 
 export default ArticlePreview;

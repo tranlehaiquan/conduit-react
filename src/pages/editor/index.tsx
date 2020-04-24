@@ -7,7 +7,6 @@ import AuthContext from '../../lib/AuthContext';
 const Editor: NextPage = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const router = useRouter();
-  console.log('456');
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -15,16 +14,13 @@ const Editor: NextPage = () => {
     }
   }, []);
 
-  return (
-    <p>Editor page</p>
-  );
-}
-
+  return <p>Editor page</p>;
+};
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   // ctx.res.writeHead(302, { location: "/login" });
   // ctx.res.end();
-  return { props: { }};
-}
+  return { props: {} };
+};
 
 export default Editor;

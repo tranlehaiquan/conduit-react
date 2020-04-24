@@ -10,12 +10,11 @@ export const validations = {
     .min(5, 'Username Too Short!')
     .max(50, 'Password Too Long')
     .required('Password is required!'),
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required!'),
+  email: Yup.string().email('Invalid email').required('Email is required!'),
 };
 
 const extractFields = (fields: string[]) => pick(validations, fields);
-const getValidationSchema = (values: string[]): Yup.ObjectSchema => Yup.object().shape(extractFields(values));
+const getValidationSchema = (values: string[]): Yup.ObjectSchema =>
+  Yup.object().shape(extractFields(values));
 
 export default getValidationSchema;

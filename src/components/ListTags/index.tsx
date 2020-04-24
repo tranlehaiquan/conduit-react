@@ -9,7 +9,7 @@ import cls from 'clsx';
 const useStyles = makeStyles(({ spacing }) => ({
   root: {
     backgroundColor: '#f3f3f3',
-    padding: [spacing(3), spacing(2)].map((i) => i + 'px').join(' '),
+    padding: [spacing(3), spacing(2)].map((i) => `${i}px`).join(' '),
   },
   tag: {
     backgroundColor: '#818a91',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ spacing }) => ({
 
 interface ListTagsProps {
   tags: string[];
-};
+}
 
 const ListTags: React.FunctionComponent<ListTagsProps> = ({ tags }) => {
   const classes = useStyles();
@@ -41,11 +41,13 @@ const ListTags: React.FunctionComponent<ListTagsProps> = ({ tags }) => {
       <Typo className={classes.title}>Popular Tags</Typo>
       {tags.map((tag) => (
         <Link key={tag} href={`${currentPath}?tag=${tag}`}>
-          <a className={cls(classes.tag, currentTag === tag && classes.active )}>{tag}</a>
+          <a className={cls(classes.tag, currentTag === tag && classes.active)}>
+            {tag}
+          </a>
         </Link>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default ListTags;

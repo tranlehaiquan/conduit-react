@@ -7,12 +7,10 @@ import cls from 'clsx';
 import AuthContext from '../../lib/AuthContext';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  root: {
-
-  },
+  root: {},
   link: {
     color: palette.brand?.main,
-    padding: [spacing(1), spacing(1.5)].map((v) => v + 'px').join(' '),
+    padding: [spacing(1), spacing(1.5)].map((v) => `${v}px`).join(' '),
     display: 'inline-block',
     borderBottom: '2px solid transparent',
   },
@@ -29,16 +27,20 @@ const FeedTabs = () => {
 
   return (
     <div className={classes.root}>
-      {isAuthenticated &&
+      {isAuthenticated && (
         <Link href="/feed">
-          <a className={cls(isFeed && classes.linkActive, classes.link)}>Feed article</a>
+          <a className={cls(isFeed && classes.linkActive, classes.link)}>
+            Feed article
+          </a>
         </Link>
-      }
+      )}
       <Link href="/">
-        <a className={cls(!isFeed && classes.linkActive, classes.link)}>Global article</a>
+        <a className={cls(!isFeed && classes.linkActive, classes.link)}>
+          Global article
+        </a>
       </Link>
     </div>
-  )
-}
+  );
+};
 
 export default FeedTabs;

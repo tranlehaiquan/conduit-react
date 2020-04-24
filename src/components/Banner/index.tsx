@@ -12,7 +12,7 @@ const useStyles = makeStyle(({ spacing, palette }) => ({
   head: {
     fontSize: '3.5rem',
     fontWeight: 'bold',
-  }
+  },
 }));
 
 export default function Banner() {
@@ -20,8 +20,12 @@ export default function Banner() {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h1" className={classes.head}>conduit</Typography>
-      <Typography variant="subtitle1">A place to share your knowledge.</Typography>
+      <Typography variant="h1" className={classes.head}>
+        conduit
+      </Typography>
+      <Typography variant="subtitle1">
+        A place to share your knowledge.
+      </Typography>
     </div>
-  )
+  );
 }

@@ -1,4 +1,3 @@
-import React from 'react';
 import { NextPage } from 'next';
 import Link from 'next/link';
 import Container from '@material-ui/core/Container';
@@ -10,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: '#fff',
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
   },
   homePage: {
     color: '#5cb85c',
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  }
+  },
 }));
 
 const Header: NextPage = () => {
@@ -36,12 +35,12 @@ const Header: NextPage = () => {
           <Link href="/">
             <a className={classes.homePage}>Conduit</a>
           </Link>
-          
+
           <Navigation />
         </div>
       </Container>
     </header>
-  )
-}
+  );
+};
 
 export default Header;

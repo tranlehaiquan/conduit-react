@@ -35,20 +35,20 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     color: '#fff',
     display: 'block',
     marginLeft: 'auto',
-    padding: [spacing(1), spacing(2)].map(x => x + 'px').join(' '),
+    padding: [spacing(1), spacing(2)].map((x) => `${x}px`).join(' '),
     fontSize: 14,
     borderRadius: 5,
   },
   error: {
     color: palette.error.main,
-  }
+  },
 }));
 
 const validationSchema = getValidationSchema(['username', 'password']);
 
 export default function Login() {
   const { setUserLogin } = useContext(AuthContext);
-  const [ errors, setErrors ] = useState<string[]>([]);
+  const [errors, setErrors] = useState<string[]>([]);
   const classes = useStyles();
   const router = useRouter();
   const formik = useFormik({
@@ -60,19 +60,24 @@ export default function Login() {
     validationSchema,
   });
 
-  async function handleLogin(values: { username: string, password: string }) {
+  async function handleLogin(values: { username: string; password: string }) {
     try {
-      const userLoginRequest = await userLogin(values.username, values.password);
+      const userLoginRequest = await userLogin(
+        values.username,
+        values.password
+      );
       setUserLogin(userLoginRequest);
       router.push('/');
-    } catch(err) {
-      if(err.errors) {
-        const listError = Object.values<string>(err.errors).map((value) => value);
+    } catch (err) {
+      if (err.errors) {
+        const listError = Object.values<string>(err.errors).map(
+          (value) => value
+        );
         setErrors(listError);
         return;
       }
 
-      if(err.error) {
+      if (err.error) {
         setErrors([err.error]);
         return;
       }
@@ -80,34 +85,41 @@ export default function Login() {
       // TODO
       // For network error will appear infomation
       // tell user try again later
-      console.log(err);
+      // eslint-disable-next-line no-console
+      console.error(err);
     }
   }
 
   return (
     <Container maxWidth="md">
       <div className={classes.root}>
-        <Typo variant="h4" component="h1" className={classes.title} >Sign In</Typo>
+        <Typo variant="h4" component="h1" className={classes.title}>
+          Sign In
+        </Typo>
         <Link href="/register">
           <a className={classes.linkRegister}>Need an account?</a>
         </Link>
-        {errors.map((err) => <p className={classes.error} key={err}>{err}</p>)}
-        <TextField 
-          variant="outlined" 
-          value={formik.values.username} 
+        {errors.map((err) => (
+          <p className={classes.error} key={err}>
+            {err}
+          </p>
+        ))}
+        <TextField
+          variant="outlined"
+          value={formik.values.username}
           onChange={formik.handleChange}
           id="username"
           name="username"
-          className={classes.input} 
-          fullWidth 
+          className={classes.input}
+          fullWidth
           placeholder="Username"
           error={Boolean(formik.touched.username && formik.errors.username)}
           helperText={formik.touched.username ? formik.errors.username : ''}
         />
-        
-        <TextField 
+
+        <TextField
           variant="outlined"
-          value={formik.values.password} 
+          value={formik.values.password}
           onChange={formik.handleChange}
           id="password"
           name="password"
@@ -118,8 +130,16 @@ export default function Login() {
           error={Boolean(formik.touched.password && formik.errors.password)}
           helperText={formik.touched.password ? formik.errors.password : ''}
         />
-        <button className={classes.btnSignIn} onClick={() => {formik.handleSubmit()}} type="submit">Submit</button>
+        <button
+          className={classes.btnSignIn}
+          onClick={() => {
+            formik.handleSubmit();
+          }}
+          type="submit"
+        >
+          Submit
+        </button>
       </div>
     </Container>
-  )
+  );
 }

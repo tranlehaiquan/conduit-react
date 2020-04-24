@@ -5,11 +5,17 @@ import { UserModel, TokenModel } from '../models';
 export interface AuthContext {
   user?: UserModel;
   logout: () => void;
-  setUserLogin: ({user, token}: { user: UserModel, token: TokenModel }) => void;
+  setUserLogin: ({
+    user,
+    token,
+  }: {
+    user: UserModel;
+    token: TokenModel;
+  }) => void;
   value?: string;
   loading?: boolean;
   isAuthenticated: boolean;
-};
+}
 
 export default createContext<AuthContext>({
   setUserLogin: () => {

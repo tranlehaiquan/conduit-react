@@ -11,7 +11,7 @@ const useStyle = makeStyles(({ spacing }) => ({
     paddingTop: spacing(8),
     textAlign: 'center',
   },
-}))
+}));
 
 const Logout: NextPage = () => {
   const { logout } = useContext(AuthContext);
@@ -27,9 +27,14 @@ const Logout: NextPage = () => {
 
   return (
     <div className={classes.root}>
-      <Typo variant="h5" component="h1">See you again! 👋👋👋</Typo>
+      <Typo variant="h5" component="h1">
+        See you again!{' '}
+        <span role="img" aria-label="hand">
+          👋👋👋
+        </span>
+      </Typo>
     </div>
   );
-}
+};
 
 export default Logout;
