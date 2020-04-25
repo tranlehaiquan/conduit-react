@@ -54,6 +54,7 @@ const Home: NextPage<HomeProps> = ({ articles, tags }) => {
               {articles.articles.map((article: ArticleModel) => (
                 <ArticlePreview key={article.id} article={article} />
               ))}
+              {!articles.articles.length && <p>No articles to show!</p>}
               {pageCount > 1 && (
                 <Pagination
                   page={page}

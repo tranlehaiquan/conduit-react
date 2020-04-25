@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import Head from 'next/head';
 
 import Header from '../Header';
 import Footer from '../Footer';
@@ -14,14 +13,6 @@ const Layout: NextPage<NextPageProps> = (props) => {
 
   return (
     <>
-      <Head>
-        <meta
-          name="viewport"
-          content="initial-scale=1.0, width=device-width"
-          key="viewport"
-        />
-        <title>{title || 'Nextjs Realworld'}</title>
-      </Head>
       <Header />
       <FullHeight>{children}</FullHeight>
       <Footer />

@@ -16,12 +16,6 @@ interface ParamsGetArtilces {
   author: string;
 }
 
-interface ParamsGetArtilcesFeed {
-  tag?: string;
-  limit?: number;
-  offset?: number;
-}
-
 /**
  * Pick query from browser query
  * @param query
@@ -68,10 +62,12 @@ export const getListArtilceFeed = async (
   return articles;
 };
 
-export const getSpecificArticleBySlug = async (
+export const getArticleDetailBySlug = async (
   slug: string
 ): Promise<ResponseGetSpecifcArticleBySlug> => {
-  const articleResult = await axios.get(`${process.env.BACK_END_URL}/api/tags`);
+  const articleResult = await axios.get(
+    `${process.env.BACK_END_URL}/api/articles/${slug}`
+  );
 
   const article: ResponseGetSpecifcArticleBySlug = articleResult?.data.data;
   return article;
